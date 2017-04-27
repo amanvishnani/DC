@@ -1,0 +1,43 @@
+steps
+1)on bothe client and server
+sudo apt-get update
+sudo apt-get install nfs-kernel-server
+
+2)on Client
+sudo apt-get install nfs-common
+sudo mkdir /nfs
+sudo chown nobody:nogroup /nfs
+
+3)on server
+sudo nano /etc/exports
+
+//file syntax just for demo dont type(directory_to_share       client(share_option1,...,share_optionN))
+
+add line to export file that u have opend
+/home       111.111.111.111(rw,sync,no_root_squash,no_subtree_check)
+/nfs    111.111.111.111(rw,sync,no_subtree_check)
+
+now both of above directories are shared
+
+now create nfs table
+sudo exportfs -a
+
+now start the nfs servic
+sudo service nfs-kernel-server start
+
+4)on client mount dir
+first create directory to which we mount
+sudo mkdir -p /mnt/nfs/home
+sudo mkdir -p /mnt/nfs/nfs
+
+sudo mount 1.2.3.4:/home /mnt/nfs/home
+sudo mount 1.2.3.4:/var/nfs /mnt/nfs/nfs
+where 1.2.3.4 is remote server addr
+
+to check type
+df -h
+it will list all mnts
+
+If you want to see all of the NFS shares that you have mounted, you can type:
+
+mount -t nfs

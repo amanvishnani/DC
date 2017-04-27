@@ -1,0 +1,4 @@
+1)compile all files 
+2)type rmiregistry in cmd and open other cmd
+3)run Server.java on other cmd
+3)run Client.java on new Cmd
